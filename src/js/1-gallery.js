@@ -1,3 +1,8 @@
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css"
+
+
+
 const images = [
     {
       preview:
@@ -69,28 +74,30 @@ const images = [
   function createGallery (array) {
   return array.map(({preview, original, description}) => `
  <li class="gallery-item">
-            <a class="gallery-link" href="${original}" onclick="event.preventDefault()" >
-              <img
-                class="gallery-image"
-                src="${preview}"
-                data-source="${original}"
-                alt="${description}"
-                loading = "lazy";
-              />
-            </a>
-          </li>
+	<a class="gallery-link" href="${original}">
+		<img 
+			class="gallery-image" 
+			src="${preview}" 
+			alt="${description}" 
+			/>
+	</a>
+</li>
   `  ).join('');
   }
-
-
   gallery.insertAdjacentHTML('afterbegin', createGallery(images));
 
-  import SimpleLightbox from "simplelightbox";
-  import "simplelightbox/dist/simple-lightbox.min.css";
+  const lightbox = new SimpleLightbox('.gallery-item a', {
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    captionDelay: 250,
+  });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // Ініціалізація SimpleLightbox після завантаження DOM
-    const lightbox = new SimpleLightbox('.gallery-item', {
-        // Опції конфігурації (якщо є)
-    });
-});
+  lightbox.on('show.simplelightbox', function () {
+  });
+
+//   //   document.addEventListener('DOMContentLoaded', function() {
+// //     // Ініціалізація SimpleLightbox після завантаження DOM
+// //     const lightbox = new SimpleLightbox('.gallery-item', {
+// //         // Опції конфігурації (якщо є)
+// //     });
+// // });
